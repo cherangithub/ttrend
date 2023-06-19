@@ -19,3 +19,4 @@ environment {
                 echo '------------------- Build Completed -------------'
             }
         }
+    }
