@@ -1,4 +1,4 @@
-def registry = 'https://valaxy01.jfrog.io'
+def registry = 'https://radhakrishna.jfrog.io/'
 def imageName = 'valaxy01.jfrog.io/valaxy-docker-local/ttrend'
 def version   = '2.1.2'
 pipeline {
@@ -45,7 +45,7 @@ environment {
         steps {
             script {
                     echo '<--------------- Jar Publish Started --------------->'
-                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artifactory_token"
+                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artifactory-token"
                      def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
                      def uploadSpec = """{
                           "files": [
@@ -75,24 +75,8 @@ environment {
         }
       }
     }
-    stage (" Docker Publish "){
-        steps {
-            script {
-               echo '<--------------- Docker Publish Started --------------->'  
-                docker.withRegistry(registry, 'artifactory_token'){
-                    app.push()
-                }    
-               echo '<--------------- Docker Publish Ended --------------->'  
-            }
-        }
-    } 
-    stage (" deployment "){
-        steps {
-            script {
-                sh 'helm install ttrend-v2 ttrend-0.1.0.tgz'
-            }
-        }
-    }
+    
+    
 
 }
 }
