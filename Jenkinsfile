@@ -38,9 +38,7 @@ environment {
             sh "${scannerHome}/bin/sonar-scanner"
     }
     echo '------------------- Sonar Analysis Completed -------------'
-  }
-    }
-    }
+    
   stage("Jar Publish") {
         steps {
             script {
