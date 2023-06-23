@@ -1,5 +1,5 @@
 def registry = 'https://radhakrishna.jfrog.io/'
-def imageName = 'valaxy01.jfrog.io/valaxy-docker-local/ttrend'
+def imageName = 'radhakrishna.jfrog.io/charan-docker-local/ttrend'
 def version   = '2.1.2'
 pipeline {
     agent {
@@ -75,8 +75,16 @@ environment {
         }
       }
     }
-    
-    
-
+    stage (" Docker Publish "){
+        steps {
+            script {
+               echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'artifactory_token'){
+                    app.push()
+                }    
+               echo '<--------------- Docker Publish Ended --------------->'  
+            }
+       }
+}
 }
 }
